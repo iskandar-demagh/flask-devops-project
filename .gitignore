@@ -1,0 +1,14 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables (NEVER commit secrets!)
+.env
+
+# Docker
+.dockerignore
+
+# OS files
+.DS_Store
