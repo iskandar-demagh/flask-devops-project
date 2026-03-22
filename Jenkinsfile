@@ -18,12 +18,24 @@ pipeline {
         }
 
         stage('Deploy') {
-            steps {
-                sh 'docker compose down'
-                sh 'docker compose up -d'
-            }
-        }
+    steps {
+        // Stop containers from Jenkins workspace
+        sh 'docker compose down || true'
 
+        // Stop ANY container using port 5000
+        sh '''
+            container=$(docker ps -q --filter "publish=5000")
+            if [ -n "$container" ]; then
+                echo "Stopping container using port 5000: $container"
+                docker stop $container
+                docker rm $container
+            fi
+        '''
+
+        // Start fresh
+        sh 'docker compose up -d'
+    }
+}
         stage('Test') {
             steps {
                 sh 'sleep 10' // wait for app to start
