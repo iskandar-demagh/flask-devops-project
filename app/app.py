@@ -45,8 +45,10 @@ with app.app_context():
 # Health check route (Jenkins will use this later)
 @app.route('/health')
 def health():
-    return jsonify({'status': 'healthy'}), 200
-
+    return jsonify({
+        'status': 'healthy',
+        'version': '1.0.0'    # add this line
+    }), 200
 # Serve the UI
 @app.route('/')
 def index():
