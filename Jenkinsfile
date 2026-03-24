@@ -17,6 +17,19 @@ pipeline {
             }
         }
 
+        stage('Push to Docker Hub') {
+    steps {
+        withCredentials([usernamePassword(
+            credentialsId: 'dockerhub-credentials',
+            usernameVariable: 'DOCKER_USER',
+            passwordVariable: 'DOCKER_PASS'
+        )]) {
+            sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+            sh 'docker tag flask-devops-project-web:latest $DOCKER_USER/flask-devops-project:latest'
+            sh 'docker push $DOCKER_USER/flask-devops-project:latest'
+        }
+    }
+} 
         stage('Deploy') {
     steps {
         // Stop containers from Jenkins workspace
