@@ -35,7 +35,12 @@ Jenkins automates the entire build and deployment process.
 | ngrok | Expose local Jenkins to GitHub webhooks |
 
 ---
+## 🐳 Docker Hub
 
+The application image is available on Docker Hub:
+```bash
+docker pull iskandardemagh/flask-devops-project:latest
+```
 ## 🚀 CI/CD Pipeline
 
 Every `git push` to `main` automatically triggers:
